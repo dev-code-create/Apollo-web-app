@@ -2,28 +2,25 @@ import { useAppStore } from "@/Store";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import EmptyChatContainer from "./components/empty-chat-container";
+import ContactsContainer from "./components/contacts-container";
+import ChatContainer from "./components/chat-container";
+
 const Chat = () => {
   const { userInfo } = useAppStore();
   const navigate = useNavigate();
-
-  const handleBackToProfile = () => {
-    navigate("/profile");
-  };
 
   useEffect(() => {
     if (!userInfo.profileSetup) {
       navigate("/profile");
     }
   }, [userInfo, navigate]);
+
   return (
-    <div>
-      Chat
-      <button
-        onClick={handleBackToProfile}
-        className="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white transition-all"
-      >
-        Back to Profile
-      </button>
+    <div className="flex h-[100vh] text-white overflow-hidden">
+      <ContactsContainer />
+      <EmptyChatContainer />
+      <ChatContainer />
     </div>
   );
 };
