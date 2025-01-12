@@ -22,8 +22,10 @@ import apiClient from "@/lib/api-client.js";
 import { HOST, SEARCH_CONTACTS_ROUTES } from "@/utils/constants.js";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { useAppStore } from "@/Store";
 
 const NewDm = () => {
+  const { setSelectedChatType, setSelectedChatData } = useAppStore();
   const [openNewContactModal, setOpenNewContactModal] = useState(false);
   const [searchedContact, setSearchedContact] = useState([]);
 
@@ -45,6 +47,13 @@ const NewDm = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const selectNewContact = async (contact) => {
+    setOpenNewContactModal(false);
+    setSelectedChatData(contact);
+    setSelectedChatType("contact");
+    setSearchedContact([]);
   };
 
   return (
@@ -80,7 +89,11 @@ const NewDm = () => {
           <ScrollArea className="h-[250px]">
             <div className="flex flex-col gap-5 ">
               {searchedContact.map((contact) => (
-                <div key={contact._id} className="flex gap-3 items-center">
+                <div
+                  key={contact._id}
+                  className="flex gap-3 items-center"
+                  onClick={() => selectNewContact(contact)}
+                >
                   <div className="w-12 h-12 relative ">
                     <Avatar className=" h-12 w-12  rounded-full overflow-hidden">
                       {contact.image ? (
