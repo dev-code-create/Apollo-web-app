@@ -101,7 +101,7 @@ const NewDm = () => {
                           <AvatarImage
                             src={`${HOST}/${contact.image}`}
                             alt="Profile"
-                            className="object-cover w-full h-full bg-none "
+                            className="object-cover w-full h-full bg-none rounded-full"
                           />
                         ) : (
                           <div
